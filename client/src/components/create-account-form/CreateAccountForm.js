@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, Fragment } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Form, {
   Item,
@@ -18,14 +18,15 @@ import './CreateAccountForm.scss';
 export default function CreateAccountForm() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const formData = useRef({ email: '', password: '' });
+  const formData = useRef({ email: '', password: '', lastName: '',  firstName: ''});
 
   const onSubmit = useCallback(async (e) => {
     e.preventDefault();
-    const { email, password } = formData.current;
+    const { email, password, lastName, firstName } = formData.current;
+    console.log(email, password, lastName, firstName);
     setLoading(true);
 
-    const result = await createAccount(email, password);
+    const result = await createAccount(email, password, lastName, firstName);
     setLoading(false);
 
     if (result.isOk) {
@@ -41,6 +42,7 @@ export default function CreateAccountForm() {
   );
 
   return (
+    <Fragment>
     <form className={'create-account-form'} onSubmit={onSubmit}>
       <Form formData={formData.current} disabled={loading}>
         <Item
@@ -50,6 +52,24 @@ export default function CreateAccountForm() {
         >
           <RequiredRule message="Email is required" />
           <EmailRule message="Email is invalid" />
+          <Label visible={false} />
+        </Item>
+        <Item
+          dataField={'lastName'}
+          editorType={'dxTextBox'}
+          editorOptions={lastNameOptions}
+          
+        >
+          <RequiredRule message="Vezetéknév kötelező" />
+          <Label visible={false} />
+        </Item>
+        <Item
+          dataField={'firstName'}
+          editorType={'dxTextBox'}
+          editorOptions={firstNameOptions}
+          
+        >
+          <RequiredRule message="Keresztnév kötelező" />
           <Label visible={false} />
         </Item>
         <Item
@@ -99,9 +119,12 @@ export default function CreateAccountForm() {
         </Item>
       </Form>
     </form>
+    </Fragment>
   );
 }
 
 const emailEditorOptions = { stylingMode: 'filled', placeholder: 'Email', mode: 'email' };
-const passwordEditorOptions = { stylingMode: 'filled', placeholder: 'Password', mode: 'password' };
-const confirmedPasswordEditorOptions = { stylingMode: 'filled', placeholder: 'Confirm Password', mode: 'password' };
+const passwordEditorOptions = { stylingMode: 'filled', placeholder: 'Jelszó', mode: 'password' };
+const confirmedPasswordEditorOptions = { stylingMode: 'filled', placeholder: 'Jelszó megerősítése', mode: 'password' };
+const lastNameOptions = { stylingMode: 'filled', placeholder: 'Vezetéknév'};
+const firstNameOptions = { stylingMode: 'filled', placeholder: 'Kersztnév'};

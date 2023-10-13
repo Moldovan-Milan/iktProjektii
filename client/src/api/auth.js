@@ -34,10 +34,30 @@ export async function getUser() {
   }
 }
 
-export async function createAccount(email, password) {
+export async function createAccount(email, password, lastName, firstName) {
   try {
     // Send request
     console.log(email, password);
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+
+    const body = JSON.stringify({
+      email: email,
+      password: password,
+      lastName: lastName,
+      firstName: firstName
+    });
+
+    const res = await axios.post(
+      "http://3020",
+      body,
+      config
+    )
+
 
     return {
       isOk: true
