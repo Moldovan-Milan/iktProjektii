@@ -18,12 +18,12 @@ import './CreateAccountForm.scss';
 export default function CreateAccountForm() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const formData = useRef({ email: '', password: '', lastName: '',  firstName: ''});
+  const formData = useRef({ email: '', password: '', lastName: '', firstName: '' });
 
   const onSubmit = useCallback(async (e) => {
     e.preventDefault();
-    const { email, password, lastName, firstName } = formData.current;
-    console.log(email, password, lastName, firstName);
+    const { email, password, firstName,lastName } = formData.current;
+    console.log(email,password,lastName,firstName)
     setLoading(true);
 
     const result = await createAccount(email, password, lastName, firstName);
@@ -42,7 +42,6 @@ export default function CreateAccountForm() {
   );
 
   return (
-    <Fragment>
     <form className={'create-account-form'} onSubmit={onSubmit}>
       <Form formData={formData.current} disabled={loading}>
         <Item
@@ -58,7 +57,6 @@ export default function CreateAccountForm() {
           dataField={'lastName'}
           editorType={'dxTextBox'}
           editorOptions={lastNameOptions}
-          
         >
           <RequiredRule message="Vezetéknév kötelező" />
           <Label visible={false} />
@@ -67,11 +65,11 @@ export default function CreateAccountForm() {
           dataField={'firstName'}
           editorType={'dxTextBox'}
           editorOptions={firstNameOptions}
-          
         >
           <RequiredRule message="Keresztnév kötelező" />
           <Label visible={false} />
         </Item>
+
         <Item
           dataField={'password'}
           editorType={'dxTextBox'}
@@ -119,12 +117,12 @@ export default function CreateAccountForm() {
         </Item>
       </Form>
     </form>
-    </Fragment>
   );
 }
 
 const emailEditorOptions = { stylingMode: 'filled', placeholder: 'Email', mode: 'email' };
 const passwordEditorOptions = { stylingMode: 'filled', placeholder: 'Jelszó', mode: 'password' };
-const confirmedPasswordEditorOptions = { stylingMode: 'filled', placeholder: 'Jelszó megerősítése', mode: 'password' };
-const lastNameOptions = { stylingMode: 'filled', placeholder: 'Vezetéknév'};
-const firstNameOptions = { stylingMode: 'filled', placeholder: 'Kersztnév'};
+const confirmedPasswordEditorOptions = { stylingMode: 'filled', placeholder: 'Confirm Password', mode: 'password' };
+
+const lastNameOptions = { stylingMode: 'filled', placeholder: 'Vezetéknév' };
+const firstNameOptions = { stylingMode: 'filled', placeholder: 'Keresztnév' };

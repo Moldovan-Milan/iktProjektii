@@ -1,16 +1,22 @@
-const {Sequelize, DataTypes, QueryTypes } = require("sequelize");
+const { Sequelize, DataTypes, QueryTypes } = require("sequelize");
 
 const dbUsers = require("./auth/users.js")
 
-const seq = new Sequelize(
-    'iktprojekt',
-    'root',
-    '',
-    {
-        host: "localhost",
-        dialect: "mysql"
-    }
-)
+const seq = new Sequelize('ikt_projekt', 'root', '', {
+    host: 'localhost',
+    dialect: 'mysql',
+    pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000,
+        requestTimeout: 300000,
+    },
+    dialectOptions: {
+        options: { encrypt: true },
+    },
+    logging: true, //dbConfig.DB_LOGGING,
+});
 
 
 const db = {};

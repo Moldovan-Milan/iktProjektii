@@ -87,7 +87,11 @@ export default function LoginForm() {
           <ButtonOptions
             text={'Create an account'}
             width={'100%'}
-            onClick={onCreateAccountClick}
+            //onClick={onCreateAccountClick}
+            onClick={() => {
+              navigate('/create-account');
+            }}
+
           />
         </ButtonItem>
       </Form>

@@ -37,26 +37,26 @@ export async function getUser() {
 export async function createAccount(email, password, lastName, firstName) {
   try {
     // Send request
-    console.log(email, password);
-
+    console.log(email, password, lastName, firstName);
     const config = {
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
     }
-
-    const body = JSON.stringify({
+    const body_raw = {
       email: email,
       password: password,
       lastName: lastName,
       firstName: firstName
-    });
+    }
+    const body = JSON.stringify(body_raw)
 
     const res = await axios.post(
-      "http://3020",
+      'http://los',
       body,
       config
     )
+
 
 
     return {
