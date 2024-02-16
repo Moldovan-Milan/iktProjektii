@@ -58,8 +58,6 @@ export async function createAccount(email, password, lastName, firstName) {
       config
     )
 
-
-
     return {
       isOk: true
     };

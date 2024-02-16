@@ -2,8 +2,8 @@ const { Sequelize, DataTypes, QueryTypes } = require("sequelize");
 
 const dbUsers = require("./auth/users.js")
 
-const seq = new Sequelize('ikt_projekt', 'root', '', {
-    host: 'localhost',
+const seq = new Sequelize('scriptan_IKT', 'scriptan_le', 'F7bs7Bvk', {
+    host: 'scriptantia-solutions.hu',
     dialect: 'mysql',
     pool: {
         max: 5,
